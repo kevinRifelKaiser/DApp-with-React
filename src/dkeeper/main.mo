@@ -1,9 +1,9 @@
-import List "mo:base/List"
-import Debug "mo:base/Debug"
+import List "mo:base/List";
+import Debug "mo:base/Debug";
 
 actor DKeeper {
 
-  public type Note {
+  public type Note = {
     title: Text;
     content: Text;
   };
@@ -16,11 +16,11 @@ actor DKeeper {
     let newNote: Note = {
       title = titleText;
       content = contentText;
-    }
+    };
 
     notes := List.push(newNote, notes);
     Debug.print(debug_show(notes));
     
-  }
-
+  };
+  
 }
