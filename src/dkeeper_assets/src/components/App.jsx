@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import Note from "./Note";
@@ -12,8 +12,19 @@ function App() {
   function addNote(newNote) {
     setNotes(prevNotes => {
       dkeeper.createNote(newNote.title, newNote.content);
-      return [...prevNotes, newNote];
+      return [newNote, ...prevNotes];
     });
+  }
+  //Acá usamos el hook useEffect, el cual hace algo cuando la página se renderiza, en este caso llamar a fetchData para que lea el array que creamos en main.mo. El array vacio al final sirve para evitar que la función se ejecute infinitamente (leer la doc de React hooks: useEffect).
+  useEffect(()=> {
+    console.log("useEffect triggered");
+    fetchData();
+  }, []);
+
+  //Esta función llama a la funcion de main.mo que creamos para leer todas las notas. Usamos await para esperar a que el array este lista y le asignamos el valor del array que esta almacenado en el back end, a nuestro array en el frontend, para que se renderize completo cada vez que cargamos la página. 
+  async function fetchData() {
+    const notesArray = await dkeeper.readNotes();
+    setNotes(notesArray);
   }
 
   function deleteNote(id) {

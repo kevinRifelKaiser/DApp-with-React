@@ -22,5 +22,10 @@ actor DKeeper {
     Debug.print(debug_show(notes));
     
   };
-  
+
+  //Creo una funcion de lectura solo, que asincronamente me de devuelve un array, toma la lista de notas y lo transforma en el array que me devuelve.
+  public query func readNotes(): async [Note] {
+    return List.toArray(notes);
+  };
+
 }
