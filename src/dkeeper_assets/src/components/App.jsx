@@ -15,7 +15,7 @@ function App() {
       return [newNote, ...prevNotes];
     });
   }
-  //Acá usamos el hook useEffect, el cual hace algo cuando la página se renderiza, en este caso llamar a fetchData para que lea el array que creamos en main.mo. El array vacio al final sirve para evitar que la función se ejecute infinitamente (leer la doc de React hooks: useEffect).
+  //Acá usamos el hook useEffect, el cual hace algo cuando la página se renderiza, en este caso llamar a fetchData para que lea el array que creamos en main.mo. El array vacio al final sirve para evitar que la función se ejecute infinitamente.
   useEffect(()=> {
     console.log("useEffect triggered");
     fetchData();
@@ -28,7 +28,8 @@ function App() {
   }
 
   function deleteNote(id) {
-    setNotes(prevNotes => {
+    setNotes(prevNotes => {      
+      dkeeper.removeNote(id);
       return prevNotes.filter((noteItem, index) => {
         return index !== id;
       });
